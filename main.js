@@ -78,7 +78,9 @@ const app = {
             else 
                 sumTime = sumTime + ' ngày'
         }
-
+        else {
+            sumTime = sumTime + ' giờ'   
+        }
         html.push (
             ` <tr class="tr_end">
                 <td>Tổng</td>
