@@ -66,6 +66,19 @@ const app = {
                 <th>Thời Gian (giờ)</th>
                 <th>Ưu tiên</th>
              </tr>`)
+        
+        // Đổi tổng thời gian thu nhập
+        let timeTemp 
+        if (sumTime >= 24) {
+            timeTemp = sumTime % 24
+            sumTime = Math.floor(sumTime/24)
+            if (timeTemp != 0) {
+                sumTime = sumTime + ' ngày ' + timeTemp + ' giờ'
+            }
+            else 
+                sumTime = sumTime + ' ngày'
+        }
+
         html.push (
             ` <tr class="tr_end">
                 <td>Tổng</td>
@@ -458,6 +471,11 @@ const app = {
         }
     },
     greenly: function(tempList, timeMax) {
+        tempList.forEach(function(task){
+            if (task.unit == 'ngày') {
+                task.time *= 24
+            }
+        })
         tempList.forEach(function(task){
             if (task.isLove) {
                 let temp = timeMax
