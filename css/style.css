@@ -964,3 +964,37 @@ th {
     font-weight: 600;
     border-bottom-right-radius: 4px;
 }
+
+.message_mobile {
+     text-align: center;
+     
+}
+
+.message_mobile {
+    display: none;
+}
+
+@media only screen and (max-width: 600px) {
+    .app {
+        display: none;
+    }
+
+    .message_mobile {
+        display: inline;
+        color:#ddd9f3;
+        font-size: 50px;
+        margin-top: 30px;
+    }
+
+    .message_mobile img {
+        margin-top: 50%;
+    }
+
+    body{
+        background-color: #b8a7e2;
+    }
+    .wrapper {
+        display: none;
+    }
+    
+}
