@@ -109,6 +109,10 @@ body {
     text-align: center;
 }
 
+::placeholder {
+    color: rgb(189, 184, 184);
+}
+
 .data_input:focus {
     border: 2px solid #394e5e;
 }
@@ -130,7 +134,7 @@ body {
     font-size: 16px;
     outline: none;
     border: 2px solid #e1ebfd;
-    color:#7a7575;
+    color: #704acf;;
     font-weight: 600;
     margin-right: 10px;
     padding: 7px 0px 7px 7px;
