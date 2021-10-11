@@ -442,9 +442,9 @@ const app = {
             // Ẩn tối ưu
             $('.list_tasks.optimal').style.display = 'none'
             // Reset giá trị nhập
-            // nameTask.value = ''
-            // timeTask.value = ''
-            // costTask.value = ''
+            nameTask.value = ''
+            timeTask.value = ''
+            costTask.value = ''
 
             // thêm sự kiện ấn enter lưu
             $$(`.edit-${task.id} input`).forEach(function(e) {
