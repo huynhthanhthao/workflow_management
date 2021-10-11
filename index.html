@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="./fonts/fontawesome-free-5.15.1-web/fontawesome-free-5.15.1-web/css/all.min.css">
+        <link rel="stylesheet" href="./css/style.css">
+        <script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js"></script>
+        <title>Quản Lý Công Việc</title>
+    </head>
+    <body>
+        <div class="wrapper">
+            <ul class="bg-bubbles">
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            </ul>
+            </div>
+        </div> 
+        <div class="app">
+            <!-- Heading -->
+            <div class="heading">
+                <img src="./imgs/logo.png" alt="" class="logo">
+                <h2 class="app-name">QUẢN LÝ CÔNG VIỆC</h2>
+            </div>
+            <div class="add_item">
+                <div class="values_input">
+                    <input class="name_input data_input" placeholder="Tên Công Việc"></input>
+                    <input class="time_input data_input" placeholder="Thời Gian"></input>
+                    <select class="time_unit">
+                        <option class="time_option" value="giờ">Giờ</option>
+                        <option class="time_option" value="ngày">Ngày</option>
+                    </select>
+                    <input class="cost_input data_input" placeholder="Thu Nhập"></input>
+                    <div class="add_btn">
+                        <i class="fas fa-plus-circle"></i>
+                    </div>
+                </div>
+            </div>
+            <!--  Tab UI  -->
+            <div class="tab-ui">
+                <div class="tabs">
+                    <div class="tab-item active-tab-item">
+                        <i class="fas fa-align-justify"></i>
+                        Công Việc
+                    </div>
+                    <div class="tab-item">
+                        <i class="fas fa-bolt"></i>
+                        Tối Ưu
+                    </div>
+                    <div class="tab-item">
+                        <i class="fas fa-check-circle"></i>
+                        Đã Hoàn Thành
+                    </div>
+                </div>
+                <!--  Tab contain  -->
+                <div class="tab-contain">
+                    <div class="tab_notify"></div>
+                    <div class="tab-list">
+                        <div class="list_tasks all active"></div> 
+                        <div class="list_tasks optimal">
+                            <div class="optimal-options">
+                                <span class="optimal_message">Bạn đang có <span></span> công việc</span>
+                                <div class="options_input">
+                                    <label for="">Thời gian tối đa thực hiện</label>
+                                    <input type="text" class="data_input input_time-max" placeholder="VD: 5">
+                                    <select class="optimal-time_unit time_unit">
+                                        <option class="time_option" value="gio">Giờ</option>
+                                        <option class="time_option" value="ngay">Ngày</option>
+                                    </select>
+                                </div>
+                                <button class="submit">Tối Ưu</button>
+                            </div>
+                            <div class="list_task-optimal">
+                                <table id="tasks_table">
+                                </table>
+                            </div>
+                        </div>
+                        <div class="list_tasks succeeded"></div> 
+                    </div>     
+                    <button class="create_new">
+                        <i class="fas fa-sync-alt"></i>
+                        Tạo Mới
+                    </button>
+                </div>  
+            </div>
+            <div class="app_notify">
+                <div class="notify_icon"></div>
+                <span class="notify_message"></span>
+            </div>
+            <div id="id01" class="modal">
+                <form class="modal-content" action="/action_page.php">
+                    <div class="container">
+                        <h1>Tạo mới</h1>
+                        <p>Bạn có chắc là muốn tạo mới danh sách công việc không?</p>   
+                        <div class="clearfix">
+                            <button type="button" onclick="document.getElementById('id01').style.display='none'" 
+                                class="cancelbtn">Hủy
+                            </button>
+                            <button type="button" onclick="document.getElementById('id01').style.display='none'" 
+                                class="createbtn">Đồng ý
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div> 
+        <script>
+            function ExportToExcel(type, fn, dl) {
+                var elt = document.getElementById('tasks_table');
+                var wb = XLSX.utils.table_to_book(elt, { sheet: "sheet1" });
+                return dl ? XLSX.write(wb, { bookType: type, bookSST: true, type: 'base64' }):
+                    XLSX.writeFile(wb, fn || ('danhsachcongviec.' + (type || 'xlsx')));
+            }
+        </script>
+        <script src="./main.js"></script>
+        
+    </body>
+</html>
