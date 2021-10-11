@@ -526,15 +526,21 @@ const app = {
                 isChoose: false,
                 isCompleted: false
             }
+            
+            // Thêm task 
+            _this.addTask(task)
+            
+            // Đổi đơn vị
             if (timeUnit.value == 'ngày') {
                 task.time *= 24
                 task.unitCost = task.cost / task.time
                 task.unit = "giờ"
             }
-            // Thêm task 
-            _this.addTask(task)
+            
             // Đặt lại các giá trị css
             _this.setPropertyCss(task)
+            
+            
         }
 
         // Xứ lý tạo mới
