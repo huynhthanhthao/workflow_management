@@ -81,6 +81,7 @@ const app = {
         else {
             sumTime = sumTime + ' giờ'   
         }
+
         html.push (
             ` <tr class="tr_end">
                 <td>Tổng</td>
@@ -528,21 +529,12 @@ const app = {
                 isChoose: false,
                 isCompleted: false
             }
-            
+
             // Thêm task 
             _this.addTask(task)
-            
-            // Đổi đơn vị
-            if (timeUnit.value == 'ngày') {
-                task.time *= 24
-                task.unitCost = task.cost / task.time
-                task.unit = "giờ"
-            }
-            
+
             // Đặt lại các giá trị css
             _this.setPropertyCss(task)
-            
-            
         }
 
         // Xứ lý tạo mới
@@ -583,6 +575,16 @@ const app = {
             let tempList = _this.taskList
             // Đổi đơn vị tgian tối đa
             let timeMax = Number.parseInt(inputMaxTime.value)
+
+            // Đổi đơn vị
+            tempList.forEach(function(task) {
+                if (task.unit == 'ngày') {
+                    task.time *= 24
+                    task.unitCost = task.cost / task.time
+                    task.unit = "giờ"
+                }
+            })
+
             const timeMaxUnit = $('.optimal-time_unit').value
             if ($('.optimal-time_unit').value != 'gio')
                 timeMax *= 24
