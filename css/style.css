@@ -716,6 +716,7 @@ hr {
     min-height: 100%;
     overflow: hidden;
     z-index: -1;
+    min-height: 110%;
 }
   
 .bg-bubbles {
