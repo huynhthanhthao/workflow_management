@@ -53,7 +53,7 @@ body {
     margin: 0 auto;
     width: 90%;
     min-height: 100px;
-    margin-top: 60px;
+    margin-top: 50px;
 }
 
 /* Heading */
@@ -102,11 +102,13 @@ body {
     border-radius: 10px;
     outline: none;
     border: 2px solid #e1ebfd;
-    padding: 3px 10px;
-    color:#6d46ce;
+    padding: 3px 8px;
+    color: #6d46ce;
     font-weight: 600;
     margin-right: 10px;
     text-align: center;
+    padding-left: 10px;
+    padding-left: 20px;
 }
 
 ::placeholder {
