@@ -60,7 +60,7 @@ const app = {
         })
         html.unshift(`
             <tr>
-                <th>#</th>
+                <th>STT</th>
                 <th>Tên Công Việc</th>
                 <th>Thu Nhập</th>
                 <th>Thời Gian (giờ)</th>
@@ -517,8 +517,8 @@ const app = {
         const _this = this
         // Xử lý thêm công việc
         addTaskBtn.onclick = function() {
-            let time = Number.parseFloat(timeTask.value)
-            let cost = Number.parseFloat(costTask.value)
+            let time = Number.parseInt(timeTask.value)
+            let cost = Number.parseInt(costTask.value)
             const task =  {
                 name: nameTask.value.trim(),
                 cost,
