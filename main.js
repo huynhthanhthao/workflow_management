@@ -515,6 +515,25 @@ const app = {
     },
     handleEvents: function() {
         const _this = this
+        // Xử lý nhập dữ liệu dài
+        nameTask.oninput = function () {
+            if (this.value.length >= 70) {
+                this.value = this.value.slice(0,70); 
+            }
+        }
+
+        timeTask.oninput = function () {
+            if (this.value.length >= 5) {
+                this.value = this.value.slice(0,5); 
+            }
+        }
+
+        costTask.oninput = function () {
+            if (this.value.length >= 10) {
+                this.value = this.value.slice(0,10); 
+            }
+        }
+
         // Xử lý thêm công việc
         addTaskBtn.onclick = function() {
             let time = Number.parseInt(timeTask.value)
