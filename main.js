@@ -109,8 +109,8 @@ const app = {
 
     },
     checkInvalidTask: function(task) {
-        if (!task.name|| !task.cost || !task.time 
-            || typeof task.cost != 'number' || typeof task.time != 'number') {
+        if (!task.name || !task.cost || !task.time 
+            || task.cost <= 0 || task.time <= 0) {
                 return false         
         }
         return true
@@ -137,18 +137,13 @@ const app = {
             if (!nameTask.value.trim() || !timeTask.value || !costTask.value) {
                 return 'Vui lòng nhập thông tin đầy đủ'
             }
-            else if (Number.parseFloat(costTask.value).toString()  == 'NaN' 
-                && Number.parseFloat(timeTask.value).toString()  == 'NaN') { 
-                return 'Thời gian và thu nhập phải là số'
-            }
-            else if (Number.parseFloat(costTask.value).toString()  == 'NaN') {
-                return 'Thu nhập phải là số'
-            }
-            else if (Number.parseFloat(timeTask.value).toString()  == 'NaN') {
-                return 'Thời gian phải là số'
-            }
-            else {
-                return 'Thời gian và thu nhập phải lớn hơn 0'
+            else if (Number.parseInt(timeTask.value) <= 0 || Number.parseInt(costTask.value) <= 0){
+                if (Number.parseInt(timeTask.value) <= 0 && Number.parseInt(costTask.value) <= 0)
+                    return 'Thời gian và thu nhập phải lớn hơn 0'
+                else if (Number.parseInt(timeTask.value) <= 0 && Number.parseInt(costTask.value) >= 0)
+                    return 'Thời gian phải lớn hơn 0'
+                else if (Number.parseInt(timeTask.value) >= 0 && Number.parseInt(costTask.value) <= 0)
+                    return 'Thu nhập phải lớn hơn 0'
             }
         }
     },
@@ -436,6 +431,7 @@ const app = {
 
             // Bỏ thông báo list rỗng
             tabContain.classList.remove('no_task')
+
             // Chuyển sang tab công việc
             $('.list_tasks.active').classList.remove('active')
             $('.tab-item.active-tab-item').classList.remove('active-tab-item')
@@ -505,7 +501,7 @@ const app = {
         appNotify.style.backgroundColor = 'rgb(255, 60, 60, 0.85)'
         appNotify.style.boxShadow = '2px 1px 3px 0px #f05858d9'
         notifyIcon.innerHTML = '<i class="fas fa-exclamation-circle"></i>'  
-        notifyMessage.innerText = 'Thời gian phải là số' 
+        notifyMessage.innerText = 'Thời gian phải lớn hơn 0' 
         appNotify.style.animation = 'appear-hide ease 3.5s'
         appNotify.style.animationFillMode = 'both'
         setTimeout(() => {
@@ -607,7 +603,7 @@ const app = {
             const timeMaxUnit = $('.optimal-time_unit').value
             if ($('.optimal-time_unit').value != 'gio')
                 timeMax *= 24
-            if (timeMax.toString() == 'NaN') {
+            if (Number.parseInt(timeMax) <= 0) {
                 _this.checkOptimal()
             }
             else {
@@ -617,8 +613,9 @@ const app = {
                 })
                 // sắp xếp giảm dần 
                 _this.sortList(tempList)
-                // // Giải thuật tham ăn
+                // Giải thuật tham ăn
                 _this.greenly(tempList, timeMax)
+                // Hiển thị bảng task
                 _this.renderTasks(tempList)
             }
         }        
