@@ -538,10 +538,11 @@ body {
 
 /*-----------------------------------*/
 .input_time-max {
-    padding: 4px 10px;
+    padding: 3px 1px;
     width: 60px;
     border: 2px solid #868686;
     margin-top: 20px;
+    padding-left: 14px;
 }
 
 .optimal_message {
@@ -558,11 +559,11 @@ body {
 }
 
 .optimal-time_unit {
-    padding: 4px 10px;
-    width: 85px;
+    padding: 4px 5px;
+    width: 75px;
     border: 2px solid #868686;
     margin-bottom: 30px;
-    height: 46px
+    height: 46px;
 }
 
 .submit {
