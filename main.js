@@ -263,7 +263,7 @@ const app = {
 
         // Nếu cập nhật không hợp lệ thì đặt lại giá trị cũ
         let newCost = Number.parseFloat(editCost.value)
-        let newTime = Number.parseFloat(editTime.value)
+        let newTime = Number.parseInt(editTime.value)
         if (newTime.toString() == 'NaN')
             newTime = oldTime
         if (newCost.toString() == 'NaN') 
