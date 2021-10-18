@@ -82,6 +82,9 @@ const app = {
             sumTime = sumTime + ' giờ'   
         }
 
+        if (this.isFloat(sumCost)) {
+            sumCost = sumCost.toFixed(1)
+        }
         html.push (
             ` <tr class="tr_end">
                 <td>Tổng</td>
@@ -109,8 +112,8 @@ const app = {
 
     },
     checkInvalidTask: function(task) {
-        if (!task.name || !task.cost || !task.time 
-            || task.cost <= 0 || task.time <= 0) {
+        if (!task.name || !task.cost || !task.time ||
+            task.cost <= 0 || task.time <= 0 || this.isFloat(task.time)) {
                 return false         
         }
         return true
@@ -128,12 +131,16 @@ const app = {
             tabContain.classList.remove('no_task')
         }
     },
+    isFloat: function(n){
+        return Number(n) === n && n % 1 !== 0;
+    },
     varlidator: function(task) {
         // Xử lý và trả và các lỗi
         if (this.checkInvalidTask(task)) {
             return 'Thêm công việc thành công'
         }
         else {
+            console.log(Number.parseFloat(timeTask.value))
             if (!nameTask.value.trim() || !timeTask.value || !costTask.value) {
                 return 'Vui lòng nhập thông tin đầy đủ'
             }
@@ -145,6 +152,10 @@ const app = {
                 else if (Number.parseInt(timeTask.value) >= 0 && Number.parseInt(costTask.value) <= 0)
                     return 'Thu nhập phải lớn hơn 0'
             }
+            else if (this.isFloat(Number.parseFloat(timeTask.value)))
+                return 'Thời gian phải là số nguyên'
+            
+                    
         }
     },
     setPropertyCss: function(task) {
@@ -532,8 +543,8 @@ const app = {
 
         // Xử lý thêm công việc
         addTaskBtn.onclick = function() {
-            let time = Number.parseInt(timeTask.value)
-            let cost = Number.parseInt(costTask.value)
+            let time = Number.parseFloat(timeTask.value)
+            let cost = Number.parseFloat(costTask.value)
             const task =  {
                 name: nameTask.value.trim(),
                 cost,
