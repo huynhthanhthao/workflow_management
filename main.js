@@ -73,18 +73,22 @@ const app = {
             timeTemp = sumTime % 24
             sumTime = Math.floor(sumTime/24)
             if (timeTemp != 0) {
-                sumTime = sumTime + ' ngày ' + timeTemp + ' giờ'
+                sumTime = sumTime + ' ngày ' + timeTemp.toFixed(2) + ' giờ'
             }
             else 
                 sumTime = sumTime + ' ngày'
         }
         else {
-            sumTime = sumTime + ' giờ'   
+            if (this.isFloat(sumTime))
+                sumTime = sumTime.toFixed(2) + ' giờ' 
+            else  
+                sumTime = sumTime + ' giờ' 
         }
 
         if (this.isFloat(sumCost)) {
-            sumCost = sumCost.toFixed(1)
+            sumCost = sumCost.toFixed(2)
         }
+
         html.push (
             ` <tr class="tr_end">
                 <td>Tổng</td>
@@ -113,7 +117,7 @@ const app = {
     },
     checkInvalidTask: function(task) {
         if (!task.name || !task.cost || !task.time ||
-            task.cost <= 0 || task.time <= 0 || this.isFloat(task.time)) {
+            task.cost <= 0 || task.time <= 0) {
                 return false         
         }
         return true
@@ -140,7 +144,6 @@ const app = {
             return 'Thêm công việc thành công'
         }
         else {
-            console.log(Number.parseFloat(timeTask.value))
             if (!nameTask.value.trim() || !timeTask.value || !costTask.value) {
                 return 'Vui lòng nhập thông tin đầy đủ'
             }
@@ -151,11 +154,7 @@ const app = {
                     return 'Thời gian phải lớn hơn 0'
                 else if (Number.parseInt(timeTask.value) >= 0 && Number.parseInt(costTask.value) <= 0)
                     return 'Thu nhập phải lớn hơn 0'
-            }
-            else if (this.isFloat(Number.parseFloat(timeTask.value)))
-                return 'Thời gian phải là số nguyên'
-            
-                    
+            }       
         }
     },
     setPropertyCss: function(task) {
@@ -260,10 +259,10 @@ const app = {
         const editName = task.querySelector('.edit_name')
         const editCost = task.querySelector('.edit_cost')
         const editTime = task.querySelector('.edit_time')
-
+        
         // Nếu cập nhật không hợp lệ thì đặt lại giá trị cũ
         let newCost = Number.parseFloat(editCost.value)
-        let newTime = Number.parseInt(editTime.value)
+        let newTime = Number.parseFloat(editTime.value)
         if (newTime.toString() == 'NaN')
             newTime = oldTime
         if (newCost.toString() == 'NaN') 
@@ -317,13 +316,16 @@ const app = {
         const oldTime = this.taskList[index].time
 
         document.addEventListener('mouseup', function(e) {
-            if (!$(`.task-${id}`).contains(e.target)) { 
-                if (edit.style.display != 'none') {
-                    edit.style.display = 'none'  
-                    app.updateEdit(task, oldTime, oldCost, index)
-                }
+            if (!(e.target == $(`.task-${id}`) || e.target == $(`.edit-${id} .edit_name`) ||
+                     e.target == $(`.edit-${id} .edit_cost`) || e.target == $(`.edit-${id} .edit_time`))) { 
+                        if (edit.style.display != 'none') {
+                            edit.style.display = 'none'  
+                            app.updateEdit(task, oldTime, oldCost, index)
+                        } 
             }
-        }) 
+        })   
+
+       
     },
     handleEdit: function(id) {
         const edit = $(`.edit-${id}`)
@@ -333,6 +335,25 @@ const app = {
         const editName = task.querySelector('.edit_name')
         const editCost = task.querySelector('.edit_cost')
         const editTime = task.querySelector('.edit_time')
+
+        // Fix chiều dài không hop le
+        editName.oninput = function () {
+            if (this.value.length >= 70) {
+                this.value = this.value.slice(0,70); 
+            }
+        }
+
+        editCost.oninput = function () {
+            if (this.value.length >= 8) {
+                this.value = this.value.slice(0,8); 
+            }
+        }
+
+        editTime.oninput = function () {
+            if (this.value.length >= 8) {
+                this.value = this.value.slice(0,8); 
+            }
+        }
 
         // Lấy địa chỉ trong task List
         this.taskList.forEach(function(task, i) {
@@ -383,13 +404,14 @@ const app = {
             $('.tab_notify-icon img').outerHTML =
                  '<img src="./imgs/check-mark.png" class="icon-check-mark">'
             $('.tab_notify span').innerText = 'Không có công việc nào ở đây.'
+
             // Ẩn tối ưu
             $('.list_tasks.optimal').style.display = 'none'
             createNew.style.display = 'none'
         }
     },
     addTask: function(task) {
-        // Kiểm tra công việc rỗng hay không
+        // Kiểm tra công việc hợp lệ hay không
         if (this.checkInvalidTask(task)) {
             this.taskList.push(task)
             task.id = this.indexTask
@@ -449,8 +471,10 @@ const app = {
             tabs[0].classList.add('active-tab-item')
             $$('.list_tasks')[0].classList.add('active')
             createNew.style.display = 'inline'
+
             // Ẩn tối ưu
             $('.list_tasks.optimal').style.display = 'none'
+
             // Reset giá trị nhập
             nameTask.value = ''
             timeTask.value = ''
@@ -530,14 +554,14 @@ const app = {
         }
 
         timeTask.oninput = function () {
-            if (this.value.length >= 5) {
-                this.value = this.value.slice(0,5); 
+            if (this.value.length >= 8) {
+                this.value = this.value.slice(0,8); 
             }
         }
 
         costTask.oninput = function () {
-            if (this.value.length >= 10) {
-                this.value = this.value.slice(0,10); 
+            if (this.value.length >= 8) {
+                this.value = this.value.slice(0,8); 
             }
         }
 
