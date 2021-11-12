@@ -421,8 +421,8 @@ const app = {
                 <div class="edit edit-${task.id}">
                     <input type="text" class="edit_name">
                     <div class="edit_bottom">
-                        <input type="text" class="edit_cost">
                         <input type="text" class="edit_time">
+                        <input type="text" class="edit_cost">
                     </div>
                 </div>
                 <button class="task_btn-love" 
