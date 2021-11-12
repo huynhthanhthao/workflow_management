@@ -433,14 +433,14 @@ const app = {
                 <div class="task_name">${task.name}</div>
                 <div class="task_bottom">
                     <div class="task_information">
-                        <div class="task_cost">
-                            <i class="fas fa-dollar-sign"></i>
-                            ${task.cost}
-                        </div>
                         <div class="task_time">
                             <i class="far fa-clock"></i>
                                 ${task.time}
                             <span>${task.unit}</span>
+                        </div>
+                        <div class="task_cost">
+                            <i class="fas fa-dollar-sign"></i>
+                            ${task.cost}
                         </div>
                     </div>
                     <div class="task_option">
